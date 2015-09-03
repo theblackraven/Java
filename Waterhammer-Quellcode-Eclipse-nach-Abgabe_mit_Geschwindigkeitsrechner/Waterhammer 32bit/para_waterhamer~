@@ -1,0 +1,1 @@
+java  -Djava.library.path=native_libs_linux_64/ -jar para.jar
