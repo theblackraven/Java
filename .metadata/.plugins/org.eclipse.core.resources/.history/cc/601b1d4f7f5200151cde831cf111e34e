@@ -669,7 +669,7 @@ public class uart_find extends JFrame{
 
 		}
 
-	
+	}
 	
 	public boolean isDouble(String s) {
 		  try {
