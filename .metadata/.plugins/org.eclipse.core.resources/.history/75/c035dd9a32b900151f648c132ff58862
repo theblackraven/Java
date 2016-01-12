@@ -15,7 +15,6 @@ import java.io.FileWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.filechooser.FileFilter;
 
 public class GCODE2GRBL {
 
@@ -125,11 +124,10 @@ public class GCODE2GRBL {
 		JButton btnSpeichern = new JButton("Speichern");
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new JFrame();
-				int answer = JOptionPane.showConfirmDialog(frame,"Ersten Werkzeugwechsel entfernt? (M6)");
 				
-				if (answer==JOptionPane.YES_OPTION)
-				{
+				final JOptionPane optionPane = new JOptionPane(
+						"Ersten Werkzeugwechesel entfernt?", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION);
+				
 				
 				JFileChooser fs = new JFileChooser(new File(""));
 				fs.setDialogTitle("geänderten G-Code speichern");
@@ -141,29 +139,22 @@ public class GCODE2GRBL {
 						fw.write(textArea_1.getText());
 						fw.flush();
 						fw.close();
-						JOptionPane.showMessageDialog(frame, "Erfolgreich gespeichert");					
-						
+					
 					} catch (Exception e2){
 						JOptionPane.showMessageDialog(null,  e2.getMessage());
-						
 					}
 					
 					
 				}
 				}
-				}
 			});
-		btnSpeichern.setBounds(384, 468, 109, 23);
+		btnSpeichern.setBounds(384, 468, 89, 23);
 		frmTargetToGrbl.getContentPane().add(btnSpeichern);
 		
 		
 		
 		
 		
+		
 	}
-	
-	
 }
-
-
- 

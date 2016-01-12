@@ -132,6 +132,7 @@ public class GCODE2GRBL {
 				{
 				
 				JFileChooser fs = new JFileChooser(new File(""));
+				fs.setFileFilter(new MyFilter(".cnc"));
 				fs.setDialogTitle("geänderten G-Code speichern");
 				int result = fs.showSaveDialog(null);
 				if (result== JFileChooser.APPROVE_OPTION){
@@ -153,7 +154,7 @@ public class GCODE2GRBL {
 				}
 				}
 			});
-		btnSpeichern.setBounds(384, 468, 109, 23);
+		btnSpeichern.setBounds(384, 468, 89, 23);
 		frmTargetToGrbl.getContentPane().add(btnSpeichern);
 		
 		
@@ -165,5 +166,26 @@ public class GCODE2GRBL {
 	
 }
 
+class MyFilter extends FileFilter {
+    private String endung;
+   
+    public MyFilter(String endung) {
+        this.endung = endung;
+    }
+   
+    @Override
+    public boolean accept(File f) {
+        if(f == null) return false;
+       
+        // Ordner anzeigen
+        if(f.isDirectory()) return true;
+       
+        // true, wenn File gewuenschte Endung besitzt
+        return f.getName().toLowerCase().endsWith(endung);
+    }
 
- 
+    @Override
+    public String getDescription() {
+        return endung + " only";
+    }
+}

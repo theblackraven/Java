@@ -11,15 +11,13 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.filechooser.FileFilter;
 
 public class GCODE2GRBL {
 
-	private JFrame frmTargetToGrbl;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -29,7 +27,7 @@ public class GCODE2GRBL {
 			public void run() {
 				try {
 					GCODE2GRBL window = new GCODE2GRBL();
-					window.frmTargetToGrbl.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,19 +46,18 @@ public class GCODE2GRBL {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmTargetToGrbl = new JFrame();
-		frmTargetToGrbl.setTitle("Target3001 to GRBL");
-		frmTargetToGrbl.getContentPane().setBackground(Color.ORANGE);
-		frmTargetToGrbl.setBounds(100, 100, 903, 567);
-		frmTargetToGrbl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmTargetToGrbl.getContentPane().setLayout(null);
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.ORANGE);
+		frame.setBounds(100, 100, 903, 567);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(10, 45, 322, 473);
-		frmTargetToGrbl.getContentPane().add(scrollPane);
+		frame.getContentPane().add(scrollPane);
 		
 		JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
@@ -88,13 +85,13 @@ public class GCODE2GRBL {
 			
 		});
 		btnOpenGgode.setBounds(10, 11, 109, 23);
-		frmTargetToGrbl.getContentPane().add(btnOpenGgode);
+		frame.getContentPane().add(btnOpenGgode);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setBounds(555, 45, 322, 473);
-		frmTargetToGrbl.getContentPane().add(scrollPane_1);
+		frame.getContentPane().add(scrollPane_1);
 		
 		JTextArea textArea_1 = new JTextArea();
 		scrollPane_1.setViewportView(textArea_1);
@@ -104,66 +101,19 @@ public class GCODE2GRBL {
 			public void actionPerformed(ActionEvent e) {
 				
 				String Sentence = textArea.getText();
-				Sentence = Sentence.replace("M01", "M1");
-				Sentence = Sentence.replace("M02", "M2");
-				Sentence = Sentence.replace("M03", "M3");
-				Sentence = Sentence.replace("M04", "M4");
-				Sentence = Sentence.replace("M05", "M5");
 				Sentence = Sentence.replace("M06", "M6");
-				Sentence = Sentence.replace("M07", "M7");
-				Sentence = Sentence.replace("M08", "M8");
-				Sentence = Sentence.replace("M09", "M9");
-				
 				textArea_1.setText(Sentence);
 				
 				
 			}
 		});
-		btnUmwandeln.setBounds(384, 442, 161, 23);
-		frmTargetToGrbl.getContentPane().add(btnUmwandeln);
+		btnUmwandeln.setBounds(458, 45, 89, 23);
+		frame.getContentPane().add(btnUmwandeln);
 		
-		JButton btnSpeichern = new JButton("Speichern");
-		btnSpeichern.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new JFrame();
-				int answer = JOptionPane.showConfirmDialog(frame,"Ersten Werkzeugwechsel entfernt? (M6)");
-				
-				if (answer==JOptionPane.YES_OPTION)
-				{
-				
-				JFileChooser fs = new JFileChooser(new File(""));
-				fs.setDialogTitle("geänderten G-Code speichern");
-				int result = fs.showSaveDialog(null);
-				if (result== JFileChooser.APPROVE_OPTION){
-					File fi = fs.getSelectedFile();
-					try{
-						FileWriter fw = new FileWriter(fi.getPath());
-						fw.write(textArea_1.getText());
-						fw.flush();
-						fw.close();
-						JOptionPane.showMessageDialog(frame, "Erfolgreich gespeichert");					
-						
-					} catch (Exception e2){
-						JOptionPane.showMessageDialog(null,  e2.getMessage());
-						
-					}
-					
-					
-				}
-				}
-				}
-			});
-		btnSpeichern.setBounds(384, 468, 109, 23);
-		frmTargetToGrbl.getContentPane().add(btnSpeichern);
 		
 		
 		
 		
 		
 	}
-	
-	
 }
-
-
- 

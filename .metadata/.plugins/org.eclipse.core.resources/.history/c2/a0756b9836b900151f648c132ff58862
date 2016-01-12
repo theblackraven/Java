@@ -153,7 +153,7 @@ public class GCODE2GRBL {
 				}
 				}
 			});
-		btnSpeichern.setBounds(384, 468, 109, 23);
+		btnSpeichern.setBounds(384, 468, 89, 23);
 		frmTargetToGrbl.getContentPane().add(btnSpeichern);
 		
 		

@@ -15,7 +15,6 @@ import java.io.FileWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.filechooser.FileFilter;
 
 public class GCODE2GRBL {
 
@@ -141,7 +140,7 @@ public class GCODE2GRBL {
 						fw.write(textArea_1.getText());
 						fw.flush();
 						fw.close();
-						JOptionPane.showMessageDialog(frame, "Erfolgreich gespeichert");					
+						JOptionPane.showMessageDialog(frame, "Erfolgreich gespeicher");					
 						
 					} catch (Exception e2){
 						JOptionPane.showMessageDialog(null,  e2.getMessage());
@@ -153,17 +152,13 @@ public class GCODE2GRBL {
 				}
 				}
 			});
-		btnSpeichern.setBounds(384, 468, 109, 23);
+		btnSpeichern.setBounds(384, 468, 89, 23);
 		frmTargetToGrbl.getContentPane().add(btnSpeichern);
 		
 		
 		
 		
 		
+		
 	}
-	
-	
 }
-
-
- 
