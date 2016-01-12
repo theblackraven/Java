@@ -1,0 +1,96 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+
+public class GCODE2GRBL {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GCODE2GRBL window = new GCODE2GRBL();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public GCODE2GRBL() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.ORANGE);
+		frame.setBounds(100, 100, 903, 567);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(10, 45, 322, 473);
+		frame.getContentPane().add(scrollPane);
+		
+		JTextArea textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		
+		//Datei auswählen
+		JButton btnOpenGgode = new JButton("Open G-Gode");
+		btnOpenGgode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f = chooser.getSelectedFile();
+				String filename=f.getAbsolutePath();
+				
+				try
+				{
+					FileReader reader =new FileReader(filename);
+					textArea.read(reader, null);
+					textArea.requestFocus();
+				}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e);
+				}
+					
+				}
+			
+		});
+		btnOpenGgode.setBounds(10, 11, 109, 23);
+		frame.getContentPane().add(btnOpenGgode);
+		
+		
+		
+		
+		
+		
+	}
+}
