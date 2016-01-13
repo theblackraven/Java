@@ -114,7 +114,6 @@ public class GCODE2GRBL {
 				Sentence = Sentence.replace("M08", "M8");
 				Sentence = Sentence.replace("M09", "M9");
 				Sentence = Sentence.replace("G71", "G21");
-				Sentence = Sentence.replaceAll("\n{2,}","\n");
 				
 				textArea_1.setText(Sentence);
 				
