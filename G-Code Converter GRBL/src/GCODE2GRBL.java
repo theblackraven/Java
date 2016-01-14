@@ -50,7 +50,7 @@ public class GCODE2GRBL {
 	private void initialize() {
 		frmTargetToGrbl = new JFrame();
 		frmTargetToGrbl.setTitle("Target3001 to GRBL");
-		frmTargetToGrbl.getContentPane().setBackground(Color.ORANGE);
+		frmTargetToGrbl.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmTargetToGrbl.setBounds(100, 100, 903, 567);
 		frmTargetToGrbl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTargetToGrbl.getContentPane().setLayout(null);
