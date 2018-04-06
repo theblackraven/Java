@@ -13,11 +13,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileFilter;
 import java.util.Scanner;
+
 
 public class GCODE2GRBL {
 
@@ -95,16 +98,55 @@ public class GCODE2GRBL {
 		JButton btnOpenGgode = new JButton("Open G-Gode");
 		btnOpenGgode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(null);
-				File f = chooser.getSelectedFile();
-				String filename=f.getAbsolutePath();
+				String currentDirectory;
+				currentDirectory = System.getProperty("user.dir");				
+				File target2grbl_directory = new File(currentDirectory +"/target2grbl_directory_open_NC");
+				if(target2grbl_directory.exists() && !target2grbl_directory.isDirectory()) {
+				}
+				else
+				{
+					try
+					{
+						FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_open_NC");
+						fw.write("");
+						fw.flush();
+						fw.close();	
+						System.out.println(currentDirectory +"/target2grbl_directory_open_NC");
+					}
+					catch (Exception e) {
 
+					}
+				}
 				try
 				{
-					FileReader reader =new FileReader(filename);
-					textArea.read(reader, null);
-					textArea.requestFocus();
+					String Directory ="";
+					try {				
+						Directory = new String ( Files.readAllBytes( Paths.get(currentDirectory +"/target2grbl_directory_open_NC") ) );;
+						System.out.println(Directory);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, e);
+					}
+					System.out.println(Directory);
+
+					JFileChooser chooser = new JFileChooser(Directory);
+					chooser.showOpenDialog(null);
+					FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_open_NC");
+					fw.write(chooser.getCurrentDirectory().getAbsolutePath());
+					fw.flush();
+					fw.close();				
+					File f = chooser.getSelectedFile();
+					String filename=f.getAbsolutePath();
+
+					try
+					{
+						FileReader reader =new FileReader(filename);
+						textArea.read(reader, null);
+						textArea.requestFocus();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, e);
+					}
 				}
 				catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e);
@@ -123,7 +165,37 @@ public class GCODE2GRBL {
 		JButton btnOpenDrillTable = new JButton("Open Drill/Mill Table");
 		btnOpenDrillTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser chooser = new JFileChooser();
+				
+				String currentDirectory;
+				currentDirectory = System.getProperty("user.dir");				
+				File target2grbl_directory = new File(currentDirectory +"/target2grbl_directory_open_Drill");
+				if(target2grbl_directory.exists() && !target2grbl_directory.isDirectory()) {
+				}
+				else
+				{
+					try
+					{
+						FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_open_Drill");
+						fw.write("");
+						fw.flush();
+						fw.close();	
+						System.out.println(currentDirectory +"/target2grbl_directory_open_Drill");
+					}
+					catch (Exception k) {
+
+					}
+				}
+				String Directory ="";
+				try {				
+					Directory = new String ( Files.readAllBytes( Paths.get(currentDirectory +"/target2grbl_directory_open_Drill") ) );;
+					System.out.println(Directory);
+				}
+				catch (Exception k) {
+					JOptionPane.showMessageDialog(null, k);
+				}
+				System.out.println(Directory);
+				
+				JFileChooser chooser = new JFileChooser(Directory);
 				chooser.showOpenDialog(null);
 				File f = chooser.getSelectedFile();
 				String filename=f.getAbsolutePath();
@@ -136,6 +208,17 @@ public class GCODE2GRBL {
 				}
 				catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e);
+				}
+				
+				try
+				{
+				FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_open_Drill");
+				fw.write(chooser.getCurrentDirectory().getAbsolutePath());
+				fw.flush();
+				fw.close();		
+				}
+				catch (Exception k)
+				{						
 				}
 
 			}
@@ -205,7 +288,7 @@ public class GCODE2GRBL {
 					splitSentence[i] = splitSentence[i] + "G0 Z30.0\r\n";
 					textArea_2.append(splitSentence[i]);
 					files[i] = splitSentence[i];
-					Globals.a = i -1 ;	
+					Globals.a = i ;	
 				}
 			}
 		});
@@ -216,9 +299,39 @@ public class GCODE2GRBL {
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame = new JFrame();
+				
+				String currentDirectory;
+				currentDirectory = System.getProperty("user.dir");				
+				File target2grbl_directory = new File(currentDirectory +"/target2grbl_directory_save");
+				if(target2grbl_directory.exists() && !target2grbl_directory.isDirectory()) {
+				}
+				else
+				{
+					try
+					{
+						FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_save");
+						fw.write("");
+						fw.flush();
+						fw.close();	
+						System.out.println(currentDirectory +"/target2grbl_directory_save");
+					}
+					catch (Exception k) {
+
+					}
+				}
+				String Directory ="";
+				try {				
+					Directory = new String ( Files.readAllBytes( Paths.get(currentDirectory +"/target2grbl_directory_save") ) );;
+					System.out.println(Directory);
+				}
+				catch (Exception k) {
+					JOptionPane.showMessageDialog(null, k);
+				}
+				System.out.println(Directory);
 
 
-				JFileChooser fs = new JFileChooser(new File(""));
+
+				JFileChooser fs = new JFileChooser(Directory);
 				fs.setDialogTitle("geänderten G-Code speichern");
 				int result = fs.showSaveDialog(null);
 				if (result== JFileChooser.APPROVE_OPTION){
@@ -236,6 +349,16 @@ public class GCODE2GRBL {
 
 						}
 
+					}
+					try
+					{
+					FileWriter fw = new FileWriter(currentDirectory +"/target2grbl_directory_save");
+					fw.write(fs.getCurrentDirectory().getAbsolutePath());
+					fw.flush();
+					fw.close();		
+					}
+					catch (Exception k)
+					{						
 					}
 				}
 			}
